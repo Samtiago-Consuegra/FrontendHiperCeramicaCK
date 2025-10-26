@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const API_URL = "https://backendhiperceramicack.onrender.com";
+
   const userToggle = document.getElementById("user-toggle");
   const dropdownMenu = document.getElementById("dropdown-menu");
 
@@ -20,11 +22,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!localStorage.getItem("access_token")) {
       window.location.href = "login.html";
     }
-  }, 2000)
+  }, 2000);
 
   const nombre = localStorage.getItem("nombre") || "Usuario";
   const correo = localStorage.getItem("correo") || "correo@empresa.com";
-  const rol_id = parseInt(localStorage.getItem("rol_id"), 10); 
+  const rol_id = parseInt(localStorage.getItem("rol_id"), 10);
   const iniciales = getIniciales(nombre);
 
   const userNombre = document.getElementById("user-nombre");
@@ -46,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
       : partes[0][0].toUpperCase();
   }
 
-const adminSection = document.getElementById("admin-section");
+  const adminSection = document.getElementById("admin-section");
   if (rol_id === 2) {
     console.log("Empleado detectado → Bloqueando secciones");
     const linkCitas = document.getElementById("linkcitas");
@@ -55,7 +57,7 @@ const adminSection = document.getElementById("admin-section");
     if (linkCitas) linkCitas.classList.add("disabled");
     if (linkEmpleados) linkEmpleados.classList.add("disabled");
     if (linkReportes) linkReportes.classList.add("disabled");
-    } else if (rol_id === 1) {
+  } else if (rol_id === 1) {
     console.log("Administrador detectado → Acceso completo");
   }
 
@@ -71,8 +73,6 @@ const adminSection = document.getElementById("admin-section");
     if (linkCitas) linkCitas.classList.add("disabled");
     if (linkReportes) linkReportes.classList.add("disabled");
     if (linkChatbot) linkChatbot.classList.add("disabled");
-  }else if (rol_id === 1) {
-    console.log("Administrador detectado → Acceso completo");
   }
 
   const verPerfilBtn = document.getElementById("ver-perfil");
@@ -142,7 +142,7 @@ const adminSection = document.getElementById("admin-section");
   }
 
   const tabla = $("#tablaCitas").DataTable({
-    ajax: { url: "/api/citas", dataSrc: "" },
+    ajax: { url: `${API_URL}/api/citas`, dataSrc: "" },
     columns: [
       { data: "nombre_cliente" },
       { data: "correo" },
@@ -156,12 +156,9 @@ const adminSection = document.getElementById("admin-section");
     pageLength: 10,
     lengthMenu: [10, 20, 50],
     autoWidth: false,
-  language: {
-    url: "https://cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json",
-    paginate: {
-      previous: "Anterior",
-      next: "Siguiente",
-      },
+    language: {
+      url: "https://cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json",
+      paginate: { previous: "Anterior", next: "Siguiente" },
     },
   });
 
@@ -184,7 +181,7 @@ const adminSection = document.getElementById("admin-section");
     const data = Object.fromEntries(new FormData(form));
 
     try {
-      const res = await fetch("/api/citas", {
+      const res = await fetch(`${API_URL}/api/citas`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -231,7 +228,7 @@ const adminSection = document.getElementById("admin-section");
   async function cargarCitas(url, contenedor) {
     contenedor.innerHTML = "<p>Cargando...</p>";
     try {
-      const res = await fetch(url);
+      const res = await fetch(`${API_URL}${url}`);
       const citas = await res.json();
 
       if (!citas.length) {
@@ -273,7 +270,7 @@ const adminSection = document.getElementById("admin-section");
           };
 
           try {
-            const resp = await fetch("/api/citas/confirmar", {
+            const resp = await fetch(`${API_URL}/api/citas/confirmar`, {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify(data),

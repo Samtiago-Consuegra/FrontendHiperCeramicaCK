@@ -3,6 +3,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const userInput = document.getElementById("user-input");
   const sendBtn = document.getElementById("send-btn");
 
+  const API_URL = "https://backendhiperceramicack.onrender.com"; 
+
   userInput.addEventListener("keypress", (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
@@ -11,6 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   sendBtn.addEventListener("click", sendMessage);
+
   function sendMessage() {
     const message = userInput.value.trim();
     if (!message) return;
@@ -18,7 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
     appendMessage("usuario", message);
     userInput.value = "";
 
-    fetch("http://localhost:5005/webhooks/rest/webhook", {
+    // 🔄 Enviar mensaje al chatbot (usando endpoint del backend)
+    fetch(`${API_URL}/chatbot`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ sender: "usuario_web", message }),
@@ -34,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       })
       .catch((err) => {
-        console.error("Error al conectar con Rasa:", err);
+        console.error("Error al conectar con el servidor:", err);
         appendMessage("bot", "Error al conectar con el servidor.");
       });
   }
@@ -93,7 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
       : partes[0][0].toUpperCase();
   }
 
-const adminSection = document.getElementById("admin-section");
+  const adminSection = document.getElementById("admin-section");
   if (rol_id === 2) {
     console.log("Empleado detectado → Bloqueando secciones");
     const linkCitas = document.getElementById("linkcitas");
@@ -102,7 +106,7 @@ const adminSection = document.getElementById("admin-section");
     if (linkCitas) linkCitas.classList.add("disabled");
     if (linkEmpleados) linkEmpleados.classList.add("disabled");
     if (linkReportes) linkReportes.classList.add("disabled");
-    } else if (rol_id === 1) {
+  } else if (rol_id === 1) {
     console.log("Administrador detectado → Acceso completo");
   }
 
@@ -118,7 +122,7 @@ const adminSection = document.getElementById("admin-section");
     if (linkCitas) linkCitas.classList.add("disabled");
     if (linkReportes) linkReportes.classList.add("disabled");
     if (linkChatbot) linkChatbot.classList.add("disabled");
-  }else if (rol_id === 1) {
+  } else if (rol_id === 1) {
     console.log("Administrador detectado → Acceso completo");
   }
 

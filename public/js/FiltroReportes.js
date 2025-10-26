@@ -1,4 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // 🔧 Detectar entorno (local o producción)
+  const backendUrl = window.location.hostname.includes("localhost")
+    ? "http://127.0.0.1:5000"
+    : "https://tu-backend.onrender.com"; // 🔁 cambia por la URL real de tu backend en Render
+
   const userToggle = document.getElementById("user-toggle");
   const dropdownMenu = document.getElementById("dropdown-menu");
 
@@ -54,35 +59,25 @@ document.addEventListener("DOMContentLoaded", () => {
     return "U";
   }
 
-const adminSection = document.getElementById("admin-section");
+  const adminSection = document.getElementById("admin-section");
   if (rol_id === 2) {
     console.log("Empleado detectado → Bloqueando secciones");
-    const linkCitas = document.getElementById("linkcitas");
-    const linkEmpleados = document.getElementById("link-empleados");
-    const linkReportes = document.getElementById("link-reportes");
-    if (linkCitas) linkCitas.classList.add("disabled");
-    if (linkEmpleados) linkEmpleados.classList.add("disabled");
-    if (linkReportes) linkReportes.classList.add("disabled");
-    } else if (rol_id === 1) {
-    console.log("Administrador detectado → Acceso completo");
-    if (adminSection) adminSection.style.display = "block";
+    ["linkcitas", "link-empleados", "link-reportes"].forEach((id) => {
+      const link = document.getElementById(id);
+      if (link) link.classList.add("disabled");
+    });
+  } else if (rol_id === 1 && adminSection) {
+    adminSection.style.display = "block";
   }
 
   if (rol_id === 3) {
     console.log("Bodeguero detectado → Bloqueando secciones");
-    const linkDashboard = document.getElementById("link-dashboard");
-    const linkEmpleados = document.getElementById("link-empleados");
-    const linkCitas = document.getElementById("linkcitas");
-    const linkReportes = document.getElementById("link-reportes");
-    const linkChatbot = document.getElementById("link-chatbot");
-    if (linkDashboard) linkDashboard.classList.add("disabled");
-    if (linkEmpleados) linkEmpleados.classList.add("disabled");
-    if (linkCitas) linkCitas.classList.add("disabled");
-    if (linkReportes) linkReportes.classList.add("disabled");
-    if (linkChatbot) linkChatbot.classList.add("disabled");
-  }else if (rol_id === 1) {
-    console.log("Administrador detectado → Acceso completo");
-    if (adminSection) adminSection.style.display = "block";
+    ["link-dashboard", "link-empleados", "linkcitas", "link-reportes", "link-chatbot"].forEach(
+      (id) => {
+        const link = document.getElementById(id);
+        if (link) link.classList.add("disabled");
+      }
+    );
   }
 
   // 🚪 Cerrar sesión
@@ -167,9 +162,7 @@ const adminSection = document.getElementById("admin-section");
   }
 
   window.addEventListener("click", (e) => {
-    if (e.target === modalPerfil) {
-      modalPerfil.style.display = "none";
-    }
+    if (e.target === modalPerfil) modalPerfil.style.display = "none";
   });
 
   if (cerrarSesionBtn) {
@@ -190,6 +183,7 @@ const adminSection = document.getElementById("admin-section");
     });
   });
 
+  // 📊 Generación de reportes PDF
   const mesSelect = document.getElementById("mes");
   const anioSelect = document.getElementById("anio");
   const formFiltros = document.getElementById("form-filtros");
@@ -227,14 +221,12 @@ const adminSection = document.getElementById("admin-section");
 
       try {
         const formData = new FormData(formFiltros);
-        const response = await fetch("http://127.0.0.1:5000/generar_reporte", {
+        const response = await fetch(`${backendUrl}/generar_reporte`, {
           method: "POST",
           body: formData,
         });
 
-        if (!response.ok) {
-          throw new Error("Error al generar el reporte.");
-        }
+        if (!response.ok) throw new Error("Error al generar el reporte.");
 
         const blob = await response.blob();
         const url = window.URL.createObjectURL(blob);
@@ -250,7 +242,7 @@ const adminSection = document.getElementById("admin-section");
         window.URL.revokeObjectURL(url);
       } catch (err) {
         console.error(err);
-        alert("No se pudo generar el reporte.");
+        alert("No se pudo generar el reporte. Inténtalo más tarde.");
       }
     });
   }
