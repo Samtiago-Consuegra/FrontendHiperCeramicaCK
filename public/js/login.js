@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // 🔧 Detectar si está en local o producción
   const backendUrl = window.location.hostname.includes("localhost")
     ? "http://127.0.0.1:5000"
-    : "https://tu-backend.onrender.com"; // ⬅️ reemplaza por tu dominio de Render
+    : "https://backendhiperceramicack.onrender.com"; // ⬅️ reemplaza por tu dominio de Render
 
   const emailInput = document.getElementById("email");
   const passwordInput = document.getElementById("password");

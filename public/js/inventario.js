@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // 🔧 Detectar si está en local o producción
   const backendUrl = window.location.hostname.includes("localhost")
     ? "http://127.0.0.1:5000"
-    : "https://tu-backend.onrender.com"; // ⬅️ cambia por tu URL real de Render
+    : "https://backendhiperceramicack.onrender.com"; // ⬅️ cambia por tu URL real de Render
 
   const form = document.getElementById("form-producto");
   const btnModificar = document.getElementById("btn-modificar");

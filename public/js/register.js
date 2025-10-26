@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // 🔧 Detectar entorno: local o producción
   const backendUrl = window.location.hostname.includes("localhost")
     ? "http://127.0.0.1:5000"
-    : "https://tu-backend.onrender.com"; // ⚠️ reemplázalo con tu URL real de Render
+    : "https://backendhiperceramicack.onrender.com"; // ⚠️ reemplázalo con tu URL real de Render
 
   registerForm.addEventListener("submit", async (event) => {
     event.preventDefault();

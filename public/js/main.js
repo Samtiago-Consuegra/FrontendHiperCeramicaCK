@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // 🔧 Detectar entorno (local o producción)
   const backendUrl = window.location.hostname.includes("localhost")
     ? "http://127.0.0.1:5000"
-    : "https://tu-backend.onrender.com"; // ⚠️ reemplaza con tu dominio real de Render
+    : "https://backendhiperceramicack.onrender.com"; // ⚠️ reemplaza con tu dominio real de Render
 
   const userToggle = document.getElementById("user-toggle");
   const dropdownMenu = document.getElementById("dropdown-menu");

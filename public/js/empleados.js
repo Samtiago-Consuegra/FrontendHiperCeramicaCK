@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const backendUrl =
     window.location.hostname.includes("localhost")
       ? "http://localhost:5000"
-      : "https://tu-backend.onrender.com"; // <-- cambia esto por tu URL de Render
+      : "https://backendhiperceramicack.onrender.com"; // <-- cambia esto por tu URL de Render
 
   const userToggle = document.getElementById("user-toggle");
   const dropdownMenu = document.getElementById("dropdown-menu");
