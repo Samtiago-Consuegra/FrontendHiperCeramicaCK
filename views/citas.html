@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Citas | Cerámicas UK</title>
+
+  <link rel="stylesheet" href="/public/css/citas.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.0.2/css/dataTables.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <header class="navbar">
+    <div class="logo">
+      <span class="logo-icon">UK</span>
+      <span class="logo-text">Cerámicas UK</span>
+    </div>
+
+    <nav class="nav-links">
+      <a href="main.html" id="link-dashboard">Dashboard</a>
+      <a href="empleados.html" id="link-empleados">Empleados</a>
+      <a href="inventario.html" id="link-inventario">Inventario</a>
+      <a href="chatbot.html" id="link-chatbot">Chatbot</a>
+      <a href="FiltroReportes.html" id="link-reportes">FiltroReportes</a>
+    </nav>
+
+    <div class="user-info">
+      <span class="notification-dot"></span>
+      <div class="user-dropdown" id="user-toggle">
+        <div class="user-avatar" id="user-icon">JR</div>
+        <div class="user-name" id="user-nombre">Juan Rodríguez</div>
+
+        <div class="dropdown-menu" id="dropdown-menu">
+          <div class="user-details">
+            <div class="user-avatar">JR</div>
+            <div>
+              <p class="user-fullname" id="user-fullname">Juan Rodríguez</p>
+              <p class="user-email" id="user-correo">juan.rodriguez@empresa.com</p>
+            </div>
+          </div>
+           <a class="menu-item" id="ver-perfil">
+            <i class="fa-solid fa-user"></i> Perfil
+          </a>
+          <a href="#" class="menu-item logout" id="cerrar-sesion">
+            <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <div class="header-actions">
+      <h2>Citas Agendadas | Cerámicas UK</h2>
+
+      <div class="botones-acciones">
+        <button id="btn-nueva-cita"><i class="fa-solid fa-circle-plus"></i>Nueva Cita</button>
+        <button id="btn-citas-hoy" class="btn-secundario">Citas De Hoy</button>
+        <button id="btn-citas-manana" class="btn-secundario">Citas De Mañana</button>
+      </div>
+    </div>
+
+    <table id="tablaCitas" class="display" style="width:100%">
+      <thead>
+        <tr>
+          <th>Cliente</th>
+          <th>Correo</th>
+          <th>Teléfono</th>
+          <th>Fecha</th>
+          <th>Hora</th>
+          <th>Tipo</th>
+          <th>Motivo</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </main>
+
+  <div id="modal-cita" class="modal">
+    <div class="modal-content">
+      <span class="close" id="cerrar-modal">&times;</span>
+      <h3>Registrar Nueva Cita</h3>
+
+      <form id="form-cita">
+        <label>Nombre del Cliente:</label>
+        <input type="text" name="nombre_cliente" required>
+
+        <label>Correo:</label>
+        <input type="email" name="correo" required>
+
+        <label>Teléfono:</label>
+        <input type="text" name="telefono" required>
+
+        <label>Fecha:</label>
+        <input type="date" name="fecha_cita" required>
+
+        <label>Hora:</label>
+        <input type="time" name="hora_cita" required>
+
+        <label>Tipo de Cita:</label>
+        <select name="tipo_cita" required>
+          <option value="">Selecciona...</option>
+          <option value="Presencial">Presencial</option>
+          <option value="Virtual">Virtual</option>
+        </select>
+
+        <label>Motivo:</label>
+        <textarea name="motivo" rows="3" required></textarea>
+
+        <button type="submit">Guardar Cita</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="modal-citas-hoy" class="modal">
+    <div class="modal-content">
+      <span class="close" id="cerrar-modal-hoy">&times;</span>
+      <h3> Citas del Día de Hoy</h3>
+      <div id="lista-citas-hoy"></div>
+    </div>
+  </div>
+
+  <div id="modal-citas-manana" class="modal">
+    <div class="modal-content">
+      <span class="close" id="cerrar-modal-manana">&times;</span>
+      <h3> Citas de Mañana</h3>
+      <div id="lista-citas-manana"></div>
+    </div>
+  </div>
+
+  <div id="modal-perfil">
+    <div class="perfil-modal">
+      <span id="cerrar-perfil">&times;</span>
+
+      <div id="perfil-nombre-rol" class="perfil-header"></div>
+
+      <div class="tabs">
+        <button class="tab active" data-tab="informacion">Información</button>
+        <button class="tab" data-tab="trabajo">Trabajo</button>
+        <button class="tab" data-tab="configuracion">Configuración</button>
+      </div>
+
+      <div class="tab-content active" id="informacion">
+        <h3>📌 Información Personal</h3>
+        <p><strong>Nombre:</strong> <span id="perfil-nombre">--</span></p>
+        <p><strong>Correo:</strong> <span id="perfil-correo">--</span></p>
+        <p><strong>Teléfono:</strong> <span id="perfil-telefono">--</span></p>
+        <p><strong>Último acceso:</strong> <span id="perfil-ultimo">--</span></p>
+      </div>
+
+      <div class="tab-content" id="trabajo">
+        <h3>💼 Información Laboral</h3>
+        <p><strong>Cargo:</strong> <span id="perfil-cargo">--</span></p>
+        <p><strong>Departamento:</strong> <span id="perfil-departamento">--</span></p>
+        <p><strong>Fecha de Contratación:</strong> <span id="perfil-fecha">--</span></p>
+
+        <div id="perfil-permisos" style="display: none;">
+          <h4>🔐 Permisos:</h4>
+          <ul>
+            <li>✅ Administrador del sistema</li>
+            <li>✅ Gestión de inventario</li>
+            <li>✅ Gestión de empleados</li>
+            <li>✅ Acceso a reportes</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tab-content" id="configuracion">
+        <h3>⚙️ Configuración</h3>
+        <button class="btn-logout" id="cerrar-sesion-btn">↩ Cerrar Sesión</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.datatables.net/2.0.2/js/dataTables.min.js"></script>
+  <script src="/public/js/citas.js"></script>
+</body>
+</html>

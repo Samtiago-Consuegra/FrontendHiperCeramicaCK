@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empleados | Cerámicas UK</title>
+    <link rel="stylesheet" href="/public/css/empleados.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">
+      <span class="logo-icon">UK</span>
+      <span class="logo-text">Cerámicas UK</span>
+    </div>
+
+    <nav class="nav-links">
+      <a href="main.html" id="link-dashboard">Dashboard</a>
+      <a href="empleados.html" id="link-empleados">Empleados</a>
+      <a href="inventario.html" id="link-inventario">Inventario</a>
+      <a href="chatbot.html" id="link-chatbot">Chatbot</a>
+      <a href="FiltroReportes.html" id="link-reportes">FiltroReportes</a>
+    </nav>
+
+    <div class="user-info">
+      <span class="notification-dot"></span>
+      <div class="user-dropdown" id="user-toggle">
+        <div class="user-avatar" id="user-icon">JR</div>
+        <div class="user-name" id="user-nombre">Juan Rodríguez</div>
+
+        <div class="dropdown-menu" id="dropdown-menu">
+          <div class="user-details">
+            <div class="user-avatar">JR</div>
+            <div>
+              <p class="user-fullname" id="user-fullname">Juan Rodríguez</p>
+              <p class="user-email" id="user-correo">juan.rodriguez@empresa.com</p>
+            </div>
+          </div>
+          <a class="menu-item" id="ver-perfil">
+            <i class="fa-solid fa-user"></i> Perfil
+          </a>
+          <a href="#" class="menu-item logout" id="cerrar-sesion">
+            <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+  
+  <main class="main-content">
+    <h2>Empleados | Cerámicas UK</h2>
+        <section class="formulario-empleados">
+          <h3>Registro de Empleados</h3>
+          <div class="form-grid">
+            <input type="text" id="nombre" placeholder="Nombre y Apellido">
+            <input type="text" id="cedula" placeholder="Cédula">
+            <input type="email" id="correo" placeholder="Correo Electrónico">
+            <input type="password" id="password" placeholder="Contraseña">
+            <input type="text" id="telefono" placeholder="Teléfono">
+            <input type="text" id="direccion" placeholder="Dirección">
+          <select id="rol">
+            <option value="Seleccione Un Rol">Seleccione Un Rol</option>
+            <option value="Administrador">Administrador</option>
+            <option value="Empleado">Empleado</option>
+            <option value="Vendedor">Vendedor</option>
+            <option value="Tecnico">Técnico</option>
+            <option value="Contadora">Contadora</option>
+            <option value="Almacenista">Almacenista</option>
+            <option value="Recepcionista">Recepcionista</option>
+          </select>
+          </div>
+          <div class="form-buttons">
+            <button id="agregarEmpleado">Agregar Empleado</button>
+          </div>
+        </section>
+
+        <section class="tabla">
+            <table id="tablaEmpleados" class="display">
+                <thead>
+                    <tr>
+                        <th>Nombre y Apellido</th>
+                        <th>Cédula</th>
+                        <th>Correo</th>
+                        <th>Teléfono</th>
+                        <th>Rol</th>
+                        <th>Estado</th>
+                        <th>Más Detalles</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaEmpleadosBody">
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <script src="/public/js/empleados.js"></script>
+
+   <!-- ✅ Modal Perfil Usuario -->
+<div id="modal-perfil">
+  <div class="perfil-modal">
+    <span id="cerrar-perfil">&times;</span>
+
+    <div id="perfil-nombre-rol" class="perfil-header"></div>
+
+    <div class="tabs">
+      <button class="tab active" data-tab="informacion">Información</button>
+      <button class="tab" data-tab="trabajo">Trabajo</button>
+      <button class="tab" data-tab="configuracion">Configuración</button>
+    </div>
+
+    <div class="tab-content active" id="informacion">
+      <h3>📌 Información Personal</h3>
+      <p><strong>Nombre:</strong> <span id="perfil-nombre">--</span></p>
+      <p><strong>Correo:</strong> <span id="perfil-correo">--</span></p>
+      <p><strong>Teléfono:</strong> <span id="perfil-telefono">--</span></p>
+      <p><strong>Último acceso:</strong> <span id="perfil-ultimo">--</span></p>
+    </div>
+
+    <div class="tab-content" id="trabajo">
+      <h3>💼 Información Laboral</h3>
+      <p><strong>Cargo:</strong> <span id="perfil-cargo">--</span></p>
+      <p><strong>Departamento:</strong> <span id="perfil-departamento">--</span></p>
+      <p><strong>Fecha de Contratación:</strong> <span id="perfil-fecha">--</span></p>
+
+      <div id="perfil-permisos" style="display: none;">
+        <h4>🔐 Permisos:</h4>
+        <ul>
+          <li>✅ Administrador del sistema</li>
+          <li>✅ Gestión de inventario</li>
+          <li>✅ Gestión de empleados</li>
+          <li>✅ Acceso a reportes</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tab-content" id="configuracion">
+      <h3>⚙️ Configuración</h3>
+      <button class="btn-logout" id="cerrar-sesion-btn">↩ Cerrar Sesión</button>
+    </div>
+  </div>
+</div>
+</body>
+</html>

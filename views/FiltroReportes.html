@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chatbot | Cerámicas UK</title>
+  <link rel="stylesheet" href="/public/css/FiltroReportes.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">
+      <span class="logo-icon">UK</span>
+      <span class="logo-text">Cerámicas UK</span>
+    </div>
+
+    <nav class="nav-links">
+      <a href="main.html" id="link-dashboard">Dashboard</a>
+      <a href="empleados.html" id="link-empleados">Empleados</a>
+      <a href="inventario.html" id="link-inventario">Inventario</a>
+      <a href="chatbot.html" id="link-chatbot">Chatbot</a>
+      <a href="FiltroReportes.html" id="link-reportes">FiltroReportes</a>
+    </nav>
+
+    <div class="user-info">
+      <span class="notification-dot"></span>
+      <div class="user-dropdown" id="user-toggle">
+        <div class="user-avatar" id="user-icon">JR</div>
+        <div class="user-name" id="user-nombre">Juan Rodríguez</div>
+
+        <div class="dropdown-menu" id="dropdown-menu">
+          <div class="user-details">
+            <div class="user-avatar">JR</div>
+            <div>
+              <p class="user-fullname" id="user-fullname">Juan Rodríguez</p>
+              <p class="user-email" id="user-correo">juan.rodriguez@empresa.com</p>
+            </div>
+          </div>
+          <a class="menu-item" id="ver-perfil">
+            <i class="fa-solid fa-user"></i> Perfil
+          </a>
+          <a href="#" class="menu-item logout" id="cerrar-sesion">
+            <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <h2>Filtro Reportes | Cerámicas UK</h2>
+    
+    <section class="filtro-reporte">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa-solid fa-filter"></i>
+          <strong>Filtros de Reporte</strong>
+        </div>
+        <p class="card-desc">Selecciona los parámetros para generar el reporte deseado</p>
+
+        <form id="form-filtros" action="http://127.0.0.1:5000/generar_reporte" method="POST" target="_blank">
+          <div class="form-grid">
+            <div class="campo">
+              <label for="mes">Mes</label>
+              <select name="mes" id="mes">
+                <option disabled>Seleccionar mes</option>
+                <option value="1">Enero</option>
+                <option value="2">Febrero</option>
+                <option value="3">Marzo</option>
+                <option value="4">Abril</option>
+                <option value="5">Mayo</option>
+                <option value="6">Junio</option>
+                <option value="7">Julio</option>
+                <option value="8">Agosto</option>
+                <option value="9">Septiembre</option>
+                <option value="10">Octubre</option>
+                <option value="11">Noviembre</option>
+                <option value="12">Diciembre</option>
+              </select>
+            </div>
+
+            <div class="campo">
+              <label for="anio">Año</label>
+              <select name="anio" id="anio">
+                <option disabled>Seleccionar año</option>
+                <option value="2024">2024</option>
+                <option value="2025">2025</option>
+                <option value="2026">2026</option>
+              </select>
+            </div>
+
+            <div class="campo">
+              <label for="calidad">Calidad</label>
+              <select name="calidad" id="calidad">
+                <option disabled selected>Seleccionar calidad</option>
+                <option value="C1">Calidad C1</option>
+                <option value="C2">Calidad C2</option>
+                <option value="C3">Calidad C3</option>
+              </select>
+            </div>
+
+            <div class="campo">
+              <label for="tipo">Tipo de Reporte</label>
+              <select name="tipo" id="tipo">
+                <option disabled selected>Seleccionar tipo</option>
+                <option value="inventario">Reporte de Inventario</option>
+                <option value="ventas">Reporte de Ventas</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="acciones">
+            <button type="submit" class="btn-generar">
+              <i class="fa-solid fa-download"></i> Generar Reporte
+            </button>
+            <button type="reset" class="btn-limpiar">Limpiar Filtros</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+  </main>
+  <script src="/public/js/FiltroReportes.js"></script>
+  <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+
+  <!-- ✅ Modal Perfil Usuario -->
+<div id="modal-perfil">
+  <div class="perfil-modal">
+    <span id="cerrar-perfil">&times;</span>
+
+    <div id="perfil-nombre-rol" class="perfil-header"></div>
+
+    <div class="tabs">
+      <button class="tab active" data-tab="informacion">Información</button>
+      <button class="tab" data-tab="trabajo">Trabajo</button>
+      <button class="tab" data-tab="configuracion">Configuración</button>
+    </div>
+
+    <div class="tab-content active" id="informacion">
+      <h3>📌 Información Personal</h3>
+      <p><strong>Nombre:</strong> <span id="perfil-nombre">--</span></p>
+      <p><strong>Correo:</strong> <span id="perfil-correo">--</span></p>
+      <p><strong>Teléfono:</strong> <span id="perfil-telefono">--</span></p>
+      <p><strong>Último acceso:</strong> <span id="perfil-ultimo">--</span></p>
+    </div>
+
+    <div class="tab-content" id="trabajo">
+      <h3>💼 Información Laboral</h3>
+      <p><strong>Cargo:</strong> <span id="perfil-cargo">--</span></p>
+      <p><strong>Departamento:</strong> <span id="perfil-departamento">--</span></p>
+      <p><strong>Fecha de Contratación:</strong> <span id="perfil-fecha">--</span></p>
+
+      <div id="perfil-permisos" style="display: none;">
+        <h4>🔐 Permisos:</h4>
+        <ul>
+          <li>✅ Administrador del sistema</li>
+          <li>✅ Gestión de inventario</li>
+          <li>✅ Gestión de empleados</li>
+          <li>✅ Acceso a reportes</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tab-content" id="configuracion">
+      <h3>⚙️ Configuración</h3>
+      <button class="btn-logout" id="cerrar-sesion-btn">↩ Cerrar Sesión</button>
+    </div>
+  </div>
+</div>
+</body>
+</html>

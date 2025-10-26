@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chatbot | Cerámicas UK</title>
+  <link rel="stylesheet" href="/public/css/chat.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">
+      <span class="logo-icon">UK</span>
+      <span class="logo-text">Cerámicas UK</span>
+    </div>
+
+    <nav class="nav-links">
+      <a href="main.html" id="link-dashboard">Dashboard</a>
+      <a href="empleados.html" id="link-empleados">Empleados</a>
+      <a href="inventario.html" id="link-inventario">Inventario</a>
+      <a href="chatbot.html" id="link-chatbot">Chatbot</a>
+      <a href="FiltroReportes.html" id="link-reportes">FiltroReportes</a>
+    </nav>
+
+    <div class="user-info">
+      <span class="notification-dot"></span>
+      <div class="user-dropdown" id="user-toggle">
+        <div class="user-avatar" id="user-icon">JR</div>
+        <div class="user-name" id="user-nombre">Juan Rodríguez</div>
+
+        <div class="dropdown-menu" id="dropdown-menu">
+          <div class="user-details">
+            <div class="user-avatar">JR</div>
+            <div>
+              <p class="user-fullname" id="user-fullname">Juan Rodríguez</p>
+              <p class="user-email" id="user-correo">juan.rodriguez@empresa.com</p>
+            </div>
+          </div>
+          <a class="menu-item" id="ver-perfil">
+            <i class="fa-solid fa-user"></i> Perfil
+          </a>
+          <a href="#" class="menu-item logout" id="cerrar-sesion">
+            <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <h2>Asistente Virtual | Cerámicas UK</h2>
+
+    <div class="chat-container">
+      <div class="chat-box" id="chat-box">
+        <div class="mensaje mensaje-bot">👋 ¡Hola! Soy tu asistente virtual, ¿en qué puedo ayudarte hoy?</div>
+      </div>
+
+      <div class="input-area">
+        <textarea id="user-input" placeholder="Escribe tu mensaje..."></textarea>
+        <button id="send-btn">Enviar</button>
+      </div>
+    </div>
+
+    <div class="contact-buttons">
+      <a href="https://t.me/Ceramicas_bot" target="_blank" class="btn-telegram">
+      <img src="/public/img/telegram.png" alt="Telegram" class="icon-telegram">
+      Bot-Telegram
+      </a>
+    </div>
+
+  </main>
+  <script src="/public/js/chat.js"></script>
+  <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+
+  <!-- ✅ Modal Perfil Usuario -->
+<div id="modal-perfil">
+  <div class="perfil-modal">
+    <span id="cerrar-perfil">&times;</span>
+
+    <div id="perfil-nombre-rol" class="perfil-header"></div>
+
+    <div class="tabs">
+      <button class="tab active" data-tab="informacion">Información</button>
+      <button class="tab" data-tab="trabajo">Trabajo</button>
+      <button class="tab" data-tab="configuracion">Configuración</button>
+    </div>
+
+    <div class="tab-content active" id="informacion">
+      <h3>📌 Información Personal</h3>
+      <p><strong>Nombre:</strong> <span id="perfil-nombre">--</span></p>
+      <p><strong>Correo:</strong> <span id="perfil-correo">--</span></p>
+      <p><strong>Teléfono:</strong> <span id="perfil-telefono">--</span></p>
+      <p><strong>Último acceso:</strong> <span id="perfil-ultimo">--</span></p>
+    </div>
+
+    <div class="tab-content" id="trabajo">
+      <h3>💼 Información Laboral</h3>
+      <p><strong>Cargo:</strong> <span id="perfil-cargo">--</span></p>
+      <p><strong>Departamento:</strong> <span id="perfil-departamento">--</span></p>
+      <p><strong>Fecha de Contratación:</strong> <span id="perfil-fecha">--</span></p>
+
+      <div id="perfil-permisos" style="display: none;">
+        <h4>🔐 Permisos:</h4>
+        <ul>
+          <li>✅ Administrador del sistema</li>
+          <li>✅ Gestión de inventario</li>
+          <li>✅ Gestión de empleados</li>
+          <li>✅ Acceso a reportes</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tab-content" id="configuracion">
+      <h3>⚙️ Configuración</h3>
+      <button class="btn-logout" id="cerrar-sesion-btn">↩ Cerrar Sesión</button>
+    </div>
+  </div>
+</div>
+</body>
+</html>

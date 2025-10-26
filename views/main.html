@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard | Cerámicas UK</title>
+  
+  <link rel="stylesheet" href="../public/css/main.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+  <header class="navbar">
+    <div class="logo">
+      <span class="logo-icon">UK</span>
+      <span class="logo-text">Cerámicas UK</span>
+    </div>
+
+    <nav class="nav-links">
+      <a href="main.html" id="link-dashboard">Dashboard</a>
+      <a href="empleados.html" id="link-empleados">Empleados</a>
+      <a href="inventario.html" id="link-inventario">Inventario</a>
+      <a href="chatbot.html" id="link-chatbot">Chatbot</a>
+      <a href="FiltroReportes.html" id="link-reportes">FiltroReportes</a>
+    </nav>
+
+    <div class="user-info">
+      <span class="notification-dot"></span>
+      <div class="user-dropdown" id="user-toggle">
+        <div class="user-avatar" id="user-icon">JR</div>
+        <div class="user-name" id="user-nombre">Juan Rodríguez</div>
+
+        <div class="dropdown-menu" id="dropdown-menu">
+          <div class="user-details">
+            <div class="user-avatar">JR</div>
+            <div>
+              <p class="user-fullname" id="user-fullname">Juan Rodríguez</p>
+              <p class="user-email" id="user-correo">juan.rodriguez@empresa.com</p>
+            </div>
+          </div>
+          <a class="menu-item" id="ver-perfil">
+            <i class="fa-solid fa-user"></i> Perfil
+          </a>
+          <a href="#" class="menu-item logout" id="cerrar-sesion">
+            <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+  
+  <main class="main-content">
+    <h2>Dashboard | Cerámicas UK</h2>
+    
+    <section class="cards-container">
+      <div class="card card-dia">
+        <div class="card-header">
+          <h3>Ventas del día</h3>
+          <span id="fecha-dia"></span>
+        </div>
+        <div class="card-body" id="ventas-dia"></div>
+        <span id="ventas-dia-monto">$0</span>
+        <div class="card-footer">
+          <a href="#" id="ver-detalles">Ver detalles</a>
+        </div>
+      </div>
+
+      <div class="card card-mes">
+        <div class="card-header">
+          <div class="titulo-mes">
+            <h3>Ventas del mes</h3>
+            <p class="ventas-monto" id="ventas-mes-monto">$0</p>
+          </div>
+
+          <div class="filtros">
+            <label for="select-mes">Mes:</label>
+            <select id="select-mes"></select>
+            <label for="select-anio">Año:</label>
+            <select id="select-anio"></select>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <a href="#" id="ver-detalles-mes">Ver detalles</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="card card-boton">
+      <button class="btn-izquierda" onclick="location.href='ventas.html'">
+        <i class="fa-solid fa-cart-shopping"></i>
+        Pasarela de Ventas
+      </button>
+      <button id="linkcitas" class="btn-derecha" onclick="location.href='citas.html'">
+        <i class="fa-solid fa-calendar-days"></i>
+        Citas Agendadas
+      </button>
+    </div>
+
+    <section class="tabla-section">
+      <h3>Productos con bajo inventario</h3>
+      <table id="tabla-inventario-dt" class="display">
+        <thead>
+          <tr>
+            <th>Nombre Del Producto</th>
+            <th>Categoría</th>
+            <th>Marca</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody id="tabla-inventario"></tbody>
+      </table>
+    </section>
+
+    <div id="modal-detalles" class="modal" style="display:none;">
+      <div class="modal-content">
+        <span id="cerrar-modal" class="close">&times;</span>
+        <h3 id="titulo-detalles">Detalle de Ventas</h3>
+        <table class="tabla-ventas">
+          <thead>
+            <tr>
+              <th>Cliente</th>
+              <th>Producto</th>
+              <th>Cantidad</th>
+              <th>Total</th>
+              <th>Fecha</th>
+            </tr>
+          </thead>
+          <tbody id="tabla-ventas-detalles"></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+<!-- ✅ Modal Perfil Usuario -->
+<div id="modal-perfil">
+  <div class="perfil-modal">
+    <span id="cerrar-perfil">&times;</span>
+
+    <div id="perfil-nombre-rol" class="perfil-header"></div>
+
+    <div class="tabs">
+      <button class="tab active" data-tab="informacion">Información</button>
+      <button class="tab" data-tab="trabajo">Trabajo</button>
+      <button class="tab" data-tab="configuracion">Configuración</button>
+    </div>
+
+    <div class="tab-content active" id="informacion">
+      <h3>📌 Información Personal</h3>
+      <p><strong>Nombre:</strong> <span id="perfil-nombre">--</span></p>
+      <p><strong>Correo:</strong> <span id="perfil-correo">--</span></p>
+      <p><strong>Teléfono:</strong> <span id="perfil-telefono">--</span></p>
+      <p><strong>Último acceso:</strong> <span id="perfil-ultimo">--</span></p>
+    </div>
+
+    <div class="tab-content" id="trabajo">
+      <h3>💼 Información Laboral</h3>
+      <p><strong>Cargo:</strong> <span id="perfil-cargo">--</span></p>
+      <p><strong>Departamento:</strong> <span id="perfil-departamento">--</span></p>
+      <p><strong>Fecha de Contratación:</strong> <span id="perfil-fecha">--</span></p>
+
+      <div id="perfil-permisos" style="display: none;">
+        <h4>🔐 Permisos:</h4>
+        <ul>
+          <li>✅ Administrador del sistema</li>
+          <li>✅ Gestión de inventario</li>
+          <li>✅ Gestión de empleados</li>
+          <li>✅ Acceso a reportes</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tab-content" id="configuracion">
+      <h3>⚙️ Configuración</h3>
+      <button class="btn-logout" id="cerrar-sesion-btn">↩ Cerrar Sesión</button>
+    </div>
+  </div>
+</div>
+
+  <script defer src="../public/js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.3/jspdf.plugin.autotable.min.js"></script>
+ 
+</body>
+</html>

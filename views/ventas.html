@@ -1,0 +1,261 @@
+<!DOCTYPE html> 
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ventas | Cerámicas UK</title>
+  <link rel="stylesheet" href="/public/css/ventas.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">
+      <span class="logo-icon">UK</span>
+      <span class="logo-text">Cerámicas UK</span>
+    </div>
+    <nav class="nav-links">
+      <a href="main.html" id="link-dashboard">Dashboard</a>
+      <a href="empleados.html" id="link-empleados">Empleados</a>
+      <a href="inventario.html" id="link-inventario">Inventario</a>
+      <a href="chatbot.html" id="link-chatbot">Chatbot</a>
+      <a href="FiltroReportes.html" id="link-reportes">FiltroReportes</a>
+    </nav>
+    <div class="user-info">
+      <span class="notification-dot"></span>
+      <div class="user-dropdown" id="user-toggle">
+        <div class="user-avatar" id="user-icon">JR</div>
+        <div class="user-name" id="user-nombre">Juan Rodríguez</div>
+        <div class="dropdown-menu" id="dropdown-menu">
+          <div class="user-details">
+            <div class="user-avatar">JR</div>
+            <div>
+              <p class="user-fullname" id="user-fullname">Juan Rodríguez</p>
+              <p class="user-email" id="user-correo">juan.rodriguez@empresa.com</p>
+            </div>
+          </div>
+           <a class="menu-item" id="ver-perfil">
+            <i class="fa-solid fa-user"></i> Perfil
+          </a>
+          <a href="#" class="menu-item logout" id="cerrar-sesion">
+            <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <h2>Pasarela de Ventas</h2>
+    <div class="contenedor-form">
+      <section class="formulario-ventas">
+        <h3>Información del Producto</h3>
+        <h4>Ingresa los detalles del producto para la venta</h4>
+        <div class="tabs">
+          <button class="tab activo" data-tab="manual">Ingreso Manual</button>
+          <button class="tab" data-tab="buscar">Buscar Producto</button>
+        </div>
+
+        <form id="form-venta" class="tab-content activo" data-content="manual">
+          <div class="formulario">
+            <div class="campo">
+              <label>Nombre del Producto</label>
+              <input type="text" id="nombre_producto" required>
+            </div>
+            <div class="campo">
+              <label>Cantidad</label>
+              <input type="number" id="cantidad" value="1" min="1" required>
+            </div>
+            <div class="campo">
+              <label>Valor por Unidad</label>
+              <input type="number" id="precio_unitario" step="0.01" required>
+            </div>
+            <div class="campo">
+              <label>Fecha de Compra</label>
+              <input type="date" id="fecha_compra">
+            </div>
+            <div class="campo">
+              <label>Categoría</label>
+              <select id="categoria">
+                <option value="">Selecciona una categoría</option>
+                <option value="Pared">Pared</option>
+                <option value="Exterior">Exterior</option>
+                <option value="Interior">Interior</option>
+                <option value="Piso">Piso</option>
+              </select>
+            </div>
+            <div class="campo">
+              <label>Descripción</label>
+              <input type="text" id="descripcion">
+            </div>
+          </div>
+          <button type="submit" class="boton-negro">Agregar Producto</button>
+        </form>
+
+        <div class="tab-content" data-content="buscar">
+          <input type="text" id="buscar_producto" placeholder="Nombre o ID del producto">
+          <button id="btn-buscar">Buscar</button>
+          <div id="resultados-busqueda"></div>
+        </div>
+      </section>
+
+      <section class="formulario-ventas">
+        <h3>Información del Cliente</h3>
+        <div class="formulario">
+          <div class="campo"><label>Nombre Completo</label><input type="text" id="comprador"></div>
+          <div class="campo"><label>Cédula</label><input type="text" id="cedula"></div>
+          <div class="campo"><label>Correo Electrónico</label><input type="email" id="correo"></div>
+          <div class="campo"><label>Teléfono</label><input type="text" id="telefono"></div>
+          <div class="campo"><label>Dirección</label><input type="text" id="direccion"></div>
+          <div class="campo"><label>Método de Pago</label>
+            <select id="metodo_pago">
+              <option>Selecione metodo de pago</option>
+              <option>Efectivo</option>
+              <option>Tarjeta de Crédito</option>
+              <option>Tarjeta de Debito</option>
+              <option>PSE</option>
+            </select>
+            <div class="campo">
+              <button id="registrar-cliente" class="boton-negro" type="button">Registrar Cliente</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section class="resumen-ventas">
+      <h3>Resumen de Compra</h3>
+      <div class="tabla-contenedor">
+    <table class="tabla-resumen">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Cantidad</th>
+          <th>Precio Unitario</th>
+          <th>Subtotal</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="resumen-body">
+      <tr>
+        <td></td><td></td><td></td><td></td><td></td>
+      </tr>
+      <tr>
+        <td></td><td></td><td></td><td></td><td></td>
+      </tr>
+      <tr>
+        <td></td><td></td><td></td><td></td><td></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+<div class="totales-contenedor">
+  <table class="tabla-totales">
+    <tbody>
+      <tr>
+        <td>Subtotal:</td>
+        <td>$<span id="subtotal">0.00</span></td>
+      </tr>
+      <tr>
+        <td>IVA (12%):</td>
+        <td>$<span id="iva">0.00</span></td>
+      </tr>
+      <tr>
+        <td><strong>Total:</strong></td>
+        <td><strong>$<span id="total-general">0.00</span></strong></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+      <div class="botones-venta">
+        <button id="cancelar-venta" class="boton-negro">Cancelar Venta</button>
+        <button id="registrar-venta" class="boton-negro">Procesar Venta</button>
+        <button id="generar-cotizacion" class="boton-negro">Generar Cotización</button>
+        <button id="exportar-venta" class="boton-rojo">Facturacion de Venta</button>
+      </div>
+    </section>
+
+    <div id="modal-cotizacion" class="modal" style="display:none;">
+      <div class="modal-content">
+        <span class="cerrar-modal" id="cerrar-cotizacion">&times;</span>
+        <h3>Cotización</h3>
+        <p>Cliente: <span id="cotizacion-cliente">---</span></p>
+        <p>Correo: <span id="cotizacion-correo">---</span></p>
+        <p>Fecha: <span id="cotizacion-fecha">---</span></p>
+        
+        <table id="tabla-cotizacion" class="display tabla-cotizacion">
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Cant.</th>
+              <th>Precio Unitario</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody id="cotizacion-body"></tbody>
+        </table>
+
+        <p><strong>Total Cotización: $<span id="cotizacion-total">0.00</span></strong></p>
+        <button id="exportar-cotizacion" class="boton-negro">Exportar a PDF</button>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+  
+
+  <!-- ✅ Modal Perfil Usuario -->
+<div id="modal-perfil">
+  <div class="perfil-modal">
+    <span id="cerrar-perfil">&times;</span>
+
+    <div id="perfil-nombre-rol" class="perfil-header"></div>
+
+    <div class="tabs">
+      <button class="tab active" data-tab="informacion">Información</button>
+      <button class="tab" data-tab="trabajo">Trabajo</button>
+      <button class="tab" data-tab="configuracion">Configuración</button>
+    </div>
+
+    <div class="tab-content active" id="informacion">
+      <h3>📌 Información Personal</h3>
+      <p><strong>Nombre:</strong> <span id="perfil-nombre">--</span></p>
+      <p><strong>Correo:</strong> <span id="perfil-correo">--</span></p>
+      <p><strong>Teléfono:</strong> <span id="perfil-telefono">--</span></p>
+      <p><strong>Último acceso:</strong> <span id="perfil-ultimo">--</span></p>
+    </div>
+
+    <div class="tab-content" id="trabajo">
+      <h3>💼 Información Laboral</h3>
+      <p><strong>Cargo:</strong> <span id="perfil-cargo">--</span></p>
+      <p><strong>Departamento:</strong> <span id="perfil-departamento">--</span></p>
+      <p><strong>Fecha de Contratación:</strong> <span id="perfil-fecha">--</span></p>
+
+      <div id="perfil-permisos" style="display: none;">
+        <h4>🔐 Permisos:</h4>
+        <ul>
+          <li>✅ Administrador del sistema</li>
+          <li>✅ Gestión de inventario</li>
+          <li>✅ Gestión de empleados</li>
+          <li>✅ Acceso a reportes</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tab-content" id="configuracion">
+      <h3>⚙️ Configuración</h3>
+      <button class="btn-logout" id="cerrar-sesion-btn">↩ Cerrar Sesión</button>
+    </div>
+  </div>
+</div>
+
+ <script src="/public/js/ventas.js"></script>
+ 
+</body>
+</html>
